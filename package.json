@@ -1,5 +1,5 @@
 {
-  "name": "@danielmoncada/angular-datetime-picker",
+  "name": "@metalshub/angular-datetime-picker",
   "version": "19.0.0",
   "description": "Angular Date Time Picker",
   "keywords": [
@@ -13,7 +13,7 @@
     "material",
     "ngx"
   ],
-  "author": "Maintained and updated by Daniel Moncada, original implementatiom by Daniel Pan",
+  "author": "Previously maintained and updated by Daniel Moncada, original implementation by Daniel Pan",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
