@@ -1,6 +1,11 @@
 <div class="button-row">
   Select demo:
   <button
+    (click)="currentTab.set('single')"
+    [class.active]="currentTab() === 'single'">
+    Single:
+  </button>
+  <button
     (click)="currentTab.set('date-range')"
     [class.active]="currentTab() === 'date-range'">
     Date Range:
@@ -14,6 +19,30 @@
 
 <main>
   @switch (currentTab()) {
+    @case ('single') {
+      <label for="single">
+        Datetime single
+      </label>
+
+      <input
+        [(ngModel)]="currentDate"
+        [selectMode]="'single'"
+        [owlDateTimeTrigger]="single_component"
+        [owlDateTime]="single_component"
+        id="single">
+
+      <owl-date-time
+        #single_component
+        [startAt]="currentValue"
+        [endAt]="endValue"
+        [showCalendarWeeks]="true"
+        [pickerType]="'calendar'"
+        [firstDayOfWeek]="1"
+        (afterPickerClosed)="selectedTrigger($event)"
+        (dateSelected)="selectedTrigger($event)">
+      </owl-date-time>
+    }
+
     @case ('date-range') {
       <label for="daterange">
         Datetime range (click, then press 'Set' to modify):

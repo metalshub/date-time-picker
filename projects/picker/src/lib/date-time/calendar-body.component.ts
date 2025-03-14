@@ -22,7 +22,8 @@ export class CalendarCell {
         public ariaLabel: string,
         public enabled: boolean,
         public out: boolean = false,
-        public cellClass: string = ''
+        public cellClass: string = '',
+        public isoDate: string = ''
     ) {}
 }
 
