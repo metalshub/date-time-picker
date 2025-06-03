@@ -34,8 +34,8 @@ export abstract class DateTimeAdapter<T> {
         return this._localeChanges;
     }
 
-	public firstMonthOfTheYear: number;
-	public firstDayOfTheWeek: number;
+	public firstMonthOfTheYear: number = 0;
+	public firstDayOfTheWeek: number = 0;
     
     /** total milliseconds in a day. */
     protected readonly millisecondsInDay = 86400000;
