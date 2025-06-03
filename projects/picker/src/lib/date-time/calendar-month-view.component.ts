@@ -480,8 +480,8 @@ export class OwlMonthViewComponent<T>
         });
 
         this._weekdays = weekdays
-            .slice(firstDayOfWeek)
-            .concat(weekdays.slice(0, firstDayOfWeek));
+            .slice(firstDayOfWeek-this.dateTimeAdapter.firstDayOfTheWeek)
+            .concat(weekdays.slice(0, firstDayOfWeek-this.dateTimeAdapter.firstDayOfTheWeek));
 
         this.dateNames = this.dateTimeAdapter.getDateNames();
 
@@ -539,22 +539,23 @@ export class OwlMonthViewComponent<T>
             }
             this._days.push(week);
             if (this.showCalendarWeeks) {
-                const weekNumber = this.getISOWeek(new Date(week[0].ariaLabel));
+                const weekNumber = this.getISOWeek(week[0].isoDate);
                 this.weekNumbers.push(weekNumber);
             }
         }
         this.setSelectedDates();
     }
 
-    public getISOWeek(d: Date): number {
-        const clonedDate = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-        // Make Sunday's day number 7
-        clonedDate.setUTCDate(clonedDate.getUTCDate() + 4 - (clonedDate.getUTCDay()||7));
-        // Get first day of year
-        const yearStart = new Date(Date.UTC(clonedDate.getUTCFullYear(),0,1));
-        // Calculate full weeks to nearest Thursday
-        const weekNo = Math.ceil(( ( (+clonedDate - +yearStart) / 86400000) + 1)/7);
-        return weekNo;
+    public getISOWeek(isoDate: string): number {
+        const date = new Date(isoDate);
+        // Adjust to the nearest Thursday
+        const day = date.getUTCDay();
+        const diff = (day <= 4 ? 4 : 11) - day;
+        date.setUTCDate(date.getUTCDate() + diff);
+        // Get first day of the year
+        const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+        // Handle the case where the first week of January is considered week 52 or 53 of the previous year
+        return Math.ceil((((date.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
     }
 
     private updateFirstDayOfWeek(locale: string): void {
@@ -576,6 +577,7 @@ export class OwlMonthViewComponent<T>
             this.pickerMoment
         );
         const dateNum = this.dateTimeAdapter.getDate(date);
+        const isoDate = this.dateTimeAdapter.toIso8601(date);
         // const dateName = this.dateNames[dateNum - 1];
         const dateName = dateNum.toString();
         const ariaLabel = this.dateTimeAdapter.format(
@@ -597,7 +599,8 @@ export class OwlMonthViewComponent<T>
             ariaLabel,
             enabled,
             out,
-            cellClass
+            cellClass,
+            isoDate
         );
     }
 

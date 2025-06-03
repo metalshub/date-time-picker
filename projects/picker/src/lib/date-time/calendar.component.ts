@@ -394,6 +394,8 @@ export class OwlCalendarComponent<T>
             (this.multiyearOnly && (view !== DateView.MONTH && view !== DateView.YEAR)) ||
             (this.yearOnly && view !== DateView.MONTH)) {
             this.currentView = view;
+        } else {
+            this.dateSelected(date);
         }
         return;
     }
