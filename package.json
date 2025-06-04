@@ -1,6 +1,6 @@
 {
   "name": "@metalshub/angular-datetime-picker",
-  "version": "19.2.0",
+  "version": "20.0.0",
   "description": "Angular Date Time Picker",
   "keywords": [
     "Angular",
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@angular/animations": "^20.0.0",
-    "@angular/cdk": "^19.0.0",
+    "@angular/cdk": "^20.0.0",
     "@angular/common": "^20.0.0",
     "@angular/compiler": "^20.0.0",
     "@angular/core": "^20.0.0",
