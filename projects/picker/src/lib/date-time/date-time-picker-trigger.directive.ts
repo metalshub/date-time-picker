@@ -21,6 +21,7 @@ import { merge, of as observableOf, Subscription } from 'rxjs';
     standalone: false,
     host: {
         '(click)': 'handleClickOnHost($event)',
+        '(blur)': 'handleBlurOnHost()',
         '[class.owl-dt-trigger-disabled]': 'owlDTTriggerDisabledClass'
     }
 })
@@ -69,6 +70,10 @@ export class OwlDateTimeTriggerDirective<T> implements OnInit, OnChanges, AfterC
             this.dtPicker.open();
             event.stopPropagation();
         }
+    }
+
+    protected handleBlurOnHost(): void {
+        this.dtPicker.dtInput.formatNativeInputValue()
     }
 
     private watchStateChanges(): void {
